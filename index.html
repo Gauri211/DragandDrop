@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop</title>
+    <link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="container">
+        <h1><center>Drag and Drop</center></h1>
+        <div class="alert" id="success-msg">
+            <span class="closebtn" onclick="this.parentElement.style.visibility='hidden';">&times;</span> 
+            Item added
+          </div>
+        <div class="drag-container">
+            <div id="first">
+                <div class="item" draggable="true">
+                    <img class="item-image" src="https://images.pexels.com/photos/56866/garden-rose-red-pink-56866.jpeg?cs=srgb&dl=pexels-pixabay-56866.jpg&fm=jpg" />
+                </div>
+                <div class="item" draggable="true">
+                    <h2>Flower</h2>
+                </div>
+                <div class="item" draggable="true">
+                    <img class="item-image" src="https://th.bing.com/th/id/R.fe9c149c1aa809100a4599562cb633c7?rik=rcbk19LfHFAfyg&riu=http%3a%2f%2f2.bp.blogspot.com%2f-TA1D79yxcnM%2fTyy6ng42rbI%2fAAAAAAAAAnc%2f-4s-bZaYc_U%2fs1600%2fcolorfull%2bbird%2bHD%2bwallpaper.jpg&ehk=S0xpMdMsjpcYrfFGp2CJ6feh4CeS%2fyQLoAC%2bqsBPPY4%3d&risl=&pid=ImgRaw&r=0" />
+                </div>
+                <div class="item" draggable="true">
+                    <h2>Birds</h2>
+                </div>
+            </div>
+            <div id="second">
+
+            </div>
+        </div>
+        <div class="btn">
+            <button onclick="resetBtn()" id="reset-btn">Reset Items</button>
+        </div>
+    </div>
+    <script>
+        let items = document.getElementsByClassName("item");
+        let firstBox = document.querySelector("#first");
+        let secondBox = document.querySelector("#second");
+        //success message visvibility
+        document.getElementById('success-msg').style.visibility = "hidden";
+        //drag and drop
+        for(let list of items) {
+            list.addEventListener("dragstart", function(e) {
+                let selected = e.target;
+                secondBox.addEventListener("dragover", function(e) {
+                    e.preventDefault();
+                });
+
+                secondBox.addEventListener("drop", function(e) {
+                    secondBox.appendChild(selected);
+                    selected = null;
+                })
+
+                secondBox.addEventListener("dragend", function(e) {
+                    document.getElementById('success-msg').style.visibility = "visible";
+                })
+            })
+        }
+        //reset button function
+        const resetBtn = () => {
+            location.reload();
+            return false;
+        }
+    </script>
+</body>
+</html>
